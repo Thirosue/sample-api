@@ -1,0 +1,2 @@
+DELETE FROM staffs WHERE email = 'test@sample.com';
+INSERT INTO staffs(first_name, last_name, email, password, tel, created_by, created_at) VALUES ('john', 'doe', 'test@sample.com', 'passw0rd', '09011112222', 'none', NOW());
