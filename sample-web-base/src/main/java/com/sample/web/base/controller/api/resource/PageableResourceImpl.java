@@ -15,6 +15,8 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PageableResourceImpl extends ResourceImpl implements PageableResource {
 
+    int count;
+
     int page = 1;
 
     int totalPages;
@@ -22,7 +24,8 @@ public class PageableResourceImpl extends ResourceImpl implements PageableResour
     public PageableResourceImpl() {
     }
 
-    public PageableResourceImpl(List<? extends Dto> data, int page, int totalPages) {
+    public PageableResourceImpl(List<? extends Dto> data, int count, int page, int totalPages) {
+        this.count = count;
         this.data = data;
         this.page = page;
         this.totalPages = totalPages;
