@@ -57,7 +57,7 @@ public interface StaffDao {
      * @param staff
      * @return
      */
-    @Update
+    @Update(exclude = {"createdBy","createdAt"})
     int update(Staff staff);
 
     /**
