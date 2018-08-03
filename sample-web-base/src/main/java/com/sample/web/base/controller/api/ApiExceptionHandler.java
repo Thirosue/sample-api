@@ -3,10 +3,10 @@ package com.sample.web.base.controller.api;
 import static com.sample.web.base.WebConst.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
-import com.sample.domain.exception.AuthException;
-import com.sample.domain.exception.SessionExpireException;
+import com.sample.domain.exception.*;
 import org.apache.log4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,10 +18,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.sample.common.util.MessageUtils;
-import com.sample.domain.exception.NoDataFoundException;
 import com.sample.web.base.controller.api.resource.ErrorResourceImpl;
 import com.sample.web.base.controller.api.resource.FieldErrorResource;
-import com.sample.domain.exception.ValidationErrorException;
 
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +30,20 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice(annotations = RestController.class) // HTMLコントローラーの例外を除外する
 @Slf4j
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    /**
+     * APIエラーのハンドリング
+     *
+     * @param ex
+     * @param request
+     * @return
+     */
+    @ExceptionHandler(APIException.class)
+    public ResponseEntity<Object> handleAPIException(Exception ex, WebRequest request) {
+        val headers = new HttpHeaders();
+        val status = HttpStatus.valueOf(Integer.valueOf(ex.getMessage()));
+        return new ResponseEntity<>(createDefaultErrorResource(null, null), headers, status);
+    }
 
     /**
      * 認証エラーのハンドリング

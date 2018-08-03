@@ -86,4 +86,8 @@ public interface WebConst {
     String SWAGGER_API_DOCS = "/v2/**";
 
     String API_BASE_URL = "/api/**";
+
+    /** ---- Cookie ---- **/
+    String SESSION_ID = "sid";
+    String FUNCTION_ID = "fid";
 }

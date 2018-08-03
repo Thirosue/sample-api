@@ -5,7 +5,7 @@ import static com.sample.web.base.WebConst.*;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sample.web.base.filter.CheckOverflowFilter;
+import com.sample.web.base.filter.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -45,9 +45,6 @@ import com.sample.web.base.controller.LocalDateConverter;
 import com.sample.web.base.controller.LocalDateTimeConverter;
 import com.sample.web.base.controller.api.resource.DefaultResourceFactoryImpl;
 import com.sample.web.base.controller.api.resource.ResourceFactory;
-import com.sample.web.base.filter.ClearMDCFilter;
-import com.sample.web.base.filter.CustomCharacterEncodingFilter;
-import com.sample.web.base.filter.LoginUserTrackingFilter;
 import com.sample.web.base.helper.DeviceHelper;
 import com.sample.web.base.security.authorization.DefaultPermissionKeyResolver;
 import com.sample.web.base.security.authorization.PermissionKeyResolver;
@@ -170,6 +167,14 @@ public abstract class BaseApplicationConfig extends WebMvcConfigurerAdapter
     @Bean
     public FilterRegistrationBean checkOverflowFilterBean() {
         val filter = new CheckOverflowFilter();
+        val bean = new FilterRegistrationBean(filter);
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
+    }
+
+    @Bean
+    public FilterRegistrationBean checkTransactionLockBean() {
+        val filter = new TransactionLockFilter();
         val bean = new FilterRegistrationBean(filter);
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
