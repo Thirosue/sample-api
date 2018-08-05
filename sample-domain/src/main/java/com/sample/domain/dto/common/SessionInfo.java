@@ -25,6 +25,9 @@ public class SessionInfo implements Serializable, Dto {
     //セッションID
     String cookie;
 
-    //権限リスト
+    //ロールリスト
+    List<String> roles;
+
+    //認可リスト
     List<String> permissionKeyList;
 }

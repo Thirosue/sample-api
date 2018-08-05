@@ -21,14 +21,17 @@ INSERT INTO permissions (category_key, permission_key, permission_name, created_
 
 DELETE FROM role_permissions WHERE created_by = 'none';
 INSERT INTO role_permissions (role_key, permission_id, created_by, created_at, version) VALUES
-('system_admin', (SELECT permission_id FROM permissions WHERE permission_key = '.*'), 'none', NOW(), 1);
+('system_admin', (SELECT permission_id FROM permissions WHERE permission_key = '.*'), 'none', NOW(), 1),
+('operator', (SELECT permission_id FROM permissions WHERE permission_key = '^Code\\.(find|show|download)Code$'), 'none', NOW(), 1),
+('operator', (SELECT permission_id FROM permissions WHERE permission_key = '^Code\\.(new|edit)Code$'), 'none', NOW(), 1);
 INSERT INTO role_permissions (role_key, permission_id, created_by, created_at, version) VALUES
 ('user', (SELECT permission_id FROM permissions WHERE permission_key = '.*'), 'none', NOW(), 1);
 
 DELETE FROM staff_roles WHERE created_by = 'none';
 INSERT INTO staff_roles (staff_id, role_key, created_by, created_at, version) VALUES
 ((SELECT staff_id FROM staffs WHERE email = 'test@sample.com' AND deleted_at IS NULL), 'system_admin', 'none', NOW(), 1),
-((SELECT staff_id FROM staffs WHERE email = 'sample@sample.com' AND deleted_at IS NULL), 'system_admin', 'none', NOW(), 1);
+((SELECT staff_id FROM staffs WHERE email = 'sample@sample.com' AND deleted_at IS NULL), 'system_admin', 'none', NOW(), 1),
+((SELECT staff_id FROM staffs WHERE email = 'hoge@sample.com' AND deleted_at IS NULL), 'operator', 'none', NOW(), 1);
 
 DELETE FROM user_roles WHERE created_by = 'none';
 INSERT INTO user_roles (user_id, role_key, created_by, created_at, version) VALUES

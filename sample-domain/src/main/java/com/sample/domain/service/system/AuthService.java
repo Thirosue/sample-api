@@ -49,12 +49,15 @@ public class AuthService extends BaseTransactionalService {
         Assert.notNull(password, "password must not be null");
 
         val staff = authRepository.auth(email, CipherUtils.encryptAES(password));
-        val roles = staffRepository.findAllRole(staff.getId()).stream().map(role->role.getPermissionKey()).collect(Collectors.toList());
+        val staffRoles = staffRepository.findAllRole(staff.getId());
+        val roles = staffRoles.stream().map(role->role.getRoleKey()).collect(Collectors.toList());
+        val permissionKeys = staffRoles.stream().map(role->role.getPermissionKey()).collect(Collectors.toList());
 
         //セッション生成
         val session = createNewSession(staff.getId());
         val info = modelMapper.map(staff, SessionInfo.class);
-        info.setPermissionKeyList(roles);
+        info.setRoles(roles);
+        info.setPermissionKeyList(permissionKeys);
         info.setCookie(session.getCookie());
         session.setInfo(objectMapper.writeValueAsString(info));
         authRepository.createSession(session);
