@@ -13,29 +13,15 @@ public class CodeQuery implements Serializable {
 
     Long id;
 
+    //コード分類キー
     String categoryKey;
 
-    String categoryName;
-
+    //コード値
     String codeKey;
 
-    String codeValue;
-
+    //コードエイリアス
     String codeAlias;
 
-    String attribute1;
-
-    String attribute2;
-
-    String attribute3;
-
-    String attribute4;
-
-    String attribute5;
-
-    String attribute6;
-
-    Integer displayOrder;
-
+    //無効フラグ
     Boolean isInvalid;
 }

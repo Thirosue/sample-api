@@ -36,7 +36,17 @@ AND c.code_key = /* code.codeKey */'01'
 /*%if code.codeValue != null */
 AND c.code_value = /* code.codeValue */'男'
 /*%end*/
-/*%if code.categoryKey != null && code.categoryKey.length() > 0 */
-AND cc.category_key = /* code.categoryKey */1
+/*%if code.codeAlias != null */
+AND c.code_alias = /* code.codeAlias */'male'
+/*%end*/
+/*%if code.categoryKey != null */
+AND cc.category_key = /* code.categoryKey */'GNR0001'
+/*%end*/
+/*%if code.isInvalid != null */
+  /*%if code.isInvalid */
+AND c.is_invalid = 1
+  /*%else*/
+AND c.is_invalid = 0
+  /*%end*/
 /*%end*/
 ORDER BY c.code_id ASC, cc.category_key ASC, c.display_order ASC

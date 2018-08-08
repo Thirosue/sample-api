@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static com.sample.web.base.WebConst.MESSAGE_SUCCESS;
+import static com.sample.web.base.WebConst.defaultRows;
+import static com.sample.web.base.helper.PagerHelper.setPage;
 
 @RestController
 @RequestMapping(path = "/api/code", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,12 +45,14 @@ public class CodeRestController extends AbstractRestController {
      * @return
      */
     @GetMapping
-    public PageableResource index(CodeQuery query, @RequestParam(required = false, defaultValue = "1") int page) throws IOException {
+    public PageableResource index(CodeQuery query,
+                                  @RequestParam(required = false, defaultValue = "1") int page,
+                                  @RequestParam(required = false, defaultValue = defaultRows) int rows) throws IOException {
         // 入力値からDTOを作成する
         val where = modelMapper.map(query, Code.class);
 
         // 10件で区切って取得する
-        Page<Code> results = codeService.findAll(where, Pageable.DEFAULT_PAGEABLE);
+        Page<Code> results = codeService.findAll(where, setPage(page, rows));
 
         PageableResource resource = modelMapper.map(results, PageableResourceImpl.class);
         resource.setMessage(getMessage(MESSAGE_SUCCESS));

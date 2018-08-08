@@ -90,4 +90,7 @@ public interface WebConst {
     /** ---- Cookie ---- **/
     String SESSION_ID = "sid";
     String FUNCTION_ID = "fid";
+
+    /** ---- Application ---- **/
+    String defaultRows = "10";
 }
