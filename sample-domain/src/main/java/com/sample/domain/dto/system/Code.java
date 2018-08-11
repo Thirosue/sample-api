@@ -22,6 +22,11 @@ public class Code extends DomaDtoImpl {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    // コード分類ID
+    @JsonProperty("codeCategoryId")
+    @Column(name = "code_category_id")
+    Long codeCategoryId;
+
     // コード分類キー
     @JsonProperty("categoryKey")
     String categoryKey;

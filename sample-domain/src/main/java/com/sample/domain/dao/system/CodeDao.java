@@ -57,7 +57,7 @@ public interface CodeDao {
      * @param Code
      * @return
      */
-    @Insert
+    @Insert(exclude = {"categoryKey", "categoryName"})
     int insert(Code Code);
 
     /**
@@ -66,7 +66,7 @@ public interface CodeDao {
      * @param code
      * @return
      */
-    @Update(exclude = {"categoryKey", "categoryName", "codeKey", "createdBy","createdAt"})
+    @Update(exclude = {"codeCategoryId", "categoryKey", "categoryName", "codeKey", "createdBy" ,"createdAt"})
     int update(Code code);
 
     /**
