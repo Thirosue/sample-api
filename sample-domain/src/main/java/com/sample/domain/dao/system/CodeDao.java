@@ -66,8 +66,7 @@ public interface CodeDao {
      * @param code
      * @return
      */
-    @Update(exclude = { "categoryKey", "categoryName", "codeKey", "codeAlias", "attribute1", "attribute2", "attribute3",
-            "attribute4", "attribute5", "attribute6", "isInvalid" })
+    @Update(exclude = {"categoryKey", "categoryName", "codeKey", "createdBy","createdAt"})
     int update(Code code);
 
     /**
