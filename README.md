@@ -1,5 +1,9 @@
 # Spring Boot Api Sample
 
+[![Build Status](https://travis-ci.org/Thirosue/sample-api.svg?branch=master)](https://travis-ci.org/Thirosue/sample-api)
+
+
+
 clone to
 
 https://github.com/miyabayt/spring-boot-doma2-sample

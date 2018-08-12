@@ -106,3 +106,4 @@ gradle-app.setting
 node_modules/
 .springBeans
 docs/_build/
+docker/image/api/sample-web-admin.jar

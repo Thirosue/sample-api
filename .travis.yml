@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 
 language: java
 
@@ -18,9 +18,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-services:
-  - docker
-
 before_install:
   - sudo apt-get update
   - sudo apt-get install language-pack-ja
@@ -28,4 +25,12 @@ before_install:
   - docker-compose -f docker/docker-compose.yml up -d
 
 script:
-  - ./gradlew clean test --info
+  - ./gradlew clean :sample-web-admin:build
+  - cp sample-web-admin/build/libs/sample-web-admin.jar docker/image/api
+  - docker build -t mirrored1976/sample-api docker/image/api
+  - docker build -t mirrored1976/sample-db docker/image/db
+
+after_script:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push mirrored1976/sample-api
+  - docker push mirrored1976/sample-db
