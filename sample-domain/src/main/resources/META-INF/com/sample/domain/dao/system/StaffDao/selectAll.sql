@@ -22,5 +22,4 @@ WHERE
 /*%if staff.tel != null */
   AND tel LIKE /* @infix(staff.tel) */'09012345678' ESCAPE '$'
 /*%end*/
-ORDER BY
-  staff_id ASC
+/*# orderBy */

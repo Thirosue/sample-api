@@ -9,6 +9,7 @@ import com.sample.web.base.controller.api.AbstractRestController;
 import com.sample.web.base.controller.api.resource.PageableResource;
 import com.sample.web.base.controller.api.resource.PageableResourceImpl;
 import com.sample.web.base.controller.api.resource.Resource;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 
 import static com.sample.web.base.WebConst.MESSAGE_SUCCESS;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/api/staff", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StaffRestController extends AbstractRestController {

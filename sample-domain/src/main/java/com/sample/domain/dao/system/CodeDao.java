@@ -22,7 +22,7 @@ public interface CodeDao {
      * @return
      */
     @Select(strategy = SelectType.COLLECT)
-    <R> R selectAll(final Code code, final SelectOptions options, final Collector<Code, ?, R> collector);
+    <R> R selectAll(final Code code, final String orderBy, final SelectOptions options, final Collector<Code, ?, R> collector);
 
     /**
      * コードを1件取得します。

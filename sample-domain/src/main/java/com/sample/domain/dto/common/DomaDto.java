@@ -32,4 +32,8 @@ public interface DomaDto extends Dto {
     Integer getVersion();
 
     void setVersion(Integer version);
+
+    String getSort();
+
+    void setSort(String sort);
 }

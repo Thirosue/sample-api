@@ -49,4 +49,4 @@ AND c.is_invalid = 1
 AND c.is_invalid = 0
   /*%end*/
 /*%end*/
-ORDER BY c.code_id ASC, cc.category_key ASC, c.display_order ASC
+/*# orderBy */

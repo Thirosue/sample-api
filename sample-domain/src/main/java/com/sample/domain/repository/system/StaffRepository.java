@@ -1,6 +1,6 @@
 package com.sample.domain.repository.system;
 
-import static com.sample.domain.util.DomaUtils.createSelectOptions;
+import static com.sample.domain.util.DomaUtils.*;
 import static java.util.stream.Collectors.toList;
 
 import java.util.Optional;
@@ -42,7 +42,8 @@ public class StaffRepository extends BaseRepository {
     public Page<Staff> findAll(Staff where, Pageable pageable) {
         // ページングを指定する
         val options = createSelectOptions(pageable).count();
-        val data = staffDao.selectAll(where, options, toList());
+        val orderBy = createSortString(where);
+        val data = staffDao.selectAll(where, orderBy, options, toList());
         return pageFactory.create(data, pageable, options.getCount());
     }
 
