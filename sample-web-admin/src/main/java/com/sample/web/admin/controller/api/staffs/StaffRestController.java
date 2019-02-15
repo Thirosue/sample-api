@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static com.sample.web.base.WebConst.MESSAGE_SUCCESS;
+import static com.sample.web.base.WebConst.defaultRows;
+import static com.sample.web.base.helper.PagerHelper.setPage;
 
 @Slf4j
 @RestController
@@ -43,12 +45,14 @@ public class StaffRestController extends AbstractRestController {
      * @return
      */
     @GetMapping
-    public PageableResource index(StaffQuery query, @RequestParam(required = false, defaultValue = "1") int page) throws IOException {
+    public PageableResource index(StaffQuery query,
+                                  @RequestParam(required = false, defaultValue = "1") int page,
+                                  @RequestParam(required = false, defaultValue = defaultRows) int rows) throws IOException {
         // 入力値からDTOを作成する
         val where = modelMapper.map(query, Staff.class);
 
         // 10件で区切って取得する
-        Page<Staff> results = staffService.findAll(where, Pageable.DEFAULT_PAGEABLE);
+        Page<Staff> results = staffService.findAll(where, setPage(page, rows));
 
         PageableResource resource = modelMapper.map(results, PageableResourceImpl.class);
         resource.setMessage(getMessage(MESSAGE_SUCCESS));
