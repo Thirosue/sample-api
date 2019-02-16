@@ -119,6 +119,30 @@ public class UserRestController extends AbstractRestController {
     }
 
     /**
+     * ユーザーを更新します。
+     *
+     * @param
+     */
+    @PostMapping(value = "/updatePassword")
+    public Resource updatePassword(@Validated @RequestBody User inputUser, Errors errors) {
+        // 入力エラーがある場合
+        if (errors.hasErrors()) {
+            throw new ValidationErrorException(errors);
+        }
+
+        // 1件更新する
+        val target = userService.findById(inputUser.getId());
+        target.setPassword(target.getPassword());
+        User user = userService.update(target);
+
+        Resource resource = resourceFactory.create();
+        resource.setData(Arrays.asList(user));
+        resource.setMessage(getMessage(MESSAGE_SUCCESS));
+
+        return resource;
+    }
+
+    /**
      * ユーザーを削除します。
      *
      * @param

@@ -1,8 +1,11 @@
 package com.sample.web.admin.controller.api.staffs;
 
+import com.sample.common.util.CipherUtils;
 import com.sample.domain.dto.common.Page;
 import com.sample.domain.dto.common.Pageable;
 import com.sample.domain.dto.system.Staff;
+import com.sample.domain.dto.user.User;
+import com.sample.domain.exception.APIException;
 import com.sample.domain.exception.ValidationErrorException;
 import com.sample.domain.service.system.StaffService;
 import com.sample.web.base.controller.api.AbstractRestController;
@@ -13,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -117,6 +121,35 @@ public class StaffRestController extends AbstractRestController {
 
         Resource resource = resourceFactory.create();
         resource.setData(Arrays.asList(staff));
+        resource.setMessage(getMessage(MESSAGE_SUCCESS));
+
+        return resource;
+    }
+
+    /**
+     * パスワードを更新します。
+     *
+     * @param
+     */
+    @PostMapping(value = "/updatePassword")
+    public Resource updatePassword(@Validated @RequestBody PasswordUpdateResource passwordUpdateResource, Errors errors) {
+        // 入力エラーがある場合
+        if (errors.hasErrors()) {
+            throw new ValidationErrorException(errors);
+        }
+        Assert.isTrue(!passwordUpdateResource.password.equals(passwordUpdateResource.passwordConfirm), "password and passwordConfirm must be same vale");
+
+        // 1件更新する
+        val target = staffService.findById(passwordUpdateResource.getId());
+        if (target.getPassword().equals(CipherUtils.encryptAES(passwordUpdateResource.password))) {
+            throw new APIException("400");
+        }
+
+        target.setPassword(CipherUtils.encryptAES(passwordUpdateResource.password));
+        val user = staffService.update(target);
+
+        Resource resource = resourceFactory.create();
+        resource.setData(Arrays.asList(user));
         resource.setMessage(getMessage(MESSAGE_SUCCESS));
 
         return resource;
