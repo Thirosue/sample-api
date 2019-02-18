@@ -34,7 +34,7 @@ public interface SessionDao {
      * @param session
      * @return
      */
-    @Update
+    @Update(ignoreVersion = true)
     int update(Session session);
 
     /**
