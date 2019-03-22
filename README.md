@@ -1,8 +1,8 @@
 # Spring Boot Api Sample
 
 [![Build Status](https://travis-ci.org/Thirosue/sample-api.svg?branch=master)](https://travis-ci.org/Thirosue/sample-api)
-
-
+![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiLzBYNXJjbWhTUTl1UzMvSGlmVU9hSVRRWnRzN2NjR0JQNjU2WW1la3dJTExNQWNaTE5jTlhabUlTS2FqY0F3SGZIRG5CM2MxN2tKSUFwWW54SzFwOVE0PSIsIml2UGFyYW1ldGVyU3BlYyI6IkFibDUvbnhrSG44YXZZdUciLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 clone to
 

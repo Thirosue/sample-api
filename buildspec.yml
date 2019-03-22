@@ -1,0 +1,25 @@
+version: 0.1
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the DB image...
+      - docker build -t $DB_REPO_NAME docker/image/db
+      - docker tag $DB_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$DB_REPO_NAME:$IMAGE_TAG
+      - echo Build started on `date`
+      - echo Building the API image...
+      - docker run --rm -v $(pwd):/work openjdk:8 /bin/bash -c "cd /work && ./gradlew clean :sample-web-admin:build -x test"
+      - cp sample-web-admin/build/libs/sample-web-admin.jar docker/image/api
+      - docker build -t $API_REPO_NAME docker/image/api
+      - docker tag $API_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPO_NAME:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$DB_REPO_NAME:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPO_NAME:$IMAGE_TAG
