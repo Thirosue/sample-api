@@ -7,4 +7,4 @@ VOLUME /tmp
 COPY sample-web-admin.jar /
 
 EXPOSE 18081
-ENTRYPOINT ["java","-Dspring.datasource.url=jdbc:mysql://db.sample.local:3306/sample?useSSL=false&characterEncoding=UTF-8","-Djava.security.egd=file:/dev/./urandom","-jar","./sample-web-admin.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","./sample-web-admin.jar"]
