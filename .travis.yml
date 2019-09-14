@@ -31,6 +31,6 @@ script:
   - docker build -t mirrored1976/sample-db docker/image/db
 
 after_script:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   - docker push mirrored1976/sample-api
   - docker push mirrored1976/sample-db
