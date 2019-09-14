@@ -44,7 +44,7 @@ public class HolidayRestController extends AbstractRestController {
      * @return
      */
     @GetMapping
-    public PageableResource index(UserQuery query, @RequestParam(required = false, defaultValue = "1") int page) throws IOException {
+    public PageableResource index(HolidayQuery query, @RequestParam(required = false, defaultValue = "1") int page) throws IOException {
         // 入力値からDTOを作成する
         val where = modelMapper.map(query, Holiday.class);
 

@@ -1,6 +1,7 @@
 package com.sample.domain.dto.system;
 
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.seasar.doma.*;
 
@@ -27,5 +28,6 @@ public class Holiday extends DomaDtoImpl {
     String holidayName;
 
     // 日付
+    @JsonFormat(pattern="yyyy-MM-dd")
     LocalDate holidayDate;
 }

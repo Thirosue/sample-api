@@ -57,7 +57,7 @@ public interface HolidayDao { // TODO
      * @param holiday
      * @return
      */
-    @Update
+    @Update(exclude = {"createdBy","createdAt"})
     int update(Holiday holiday);
 
     /**
